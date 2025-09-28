@@ -37,9 +37,10 @@ export function ProgrammingQuiz() {
         throw new Error(error.message);
       }
 
-      if (!data || !data.questions) {
-        throw new Error('No questions received from quiz generation');
-      }
+if (!data || !Array.isArray(data) || data.length === 0) {
+  throw new Error('No questions received from quiz generation');
+}
+return data as QuizQuestionType[];
 
       return data.questions as QuizQuestionType[];
     } catch (error) {
