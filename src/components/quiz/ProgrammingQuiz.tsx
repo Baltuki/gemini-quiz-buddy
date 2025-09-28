@@ -37,11 +37,10 @@ export function ProgrammingQuiz() {
         throw new Error(error.message);
       }
 
-      // Cambia esta validación:
-      if (!Array.isArray(data) || data.length === 0) {
+      if (!Array.isArray(data.questions) || data.questions.length === 0) {
         throw new Error('No questions received from quiz generation');
       }
-      return data as QuizQuestionType[];
+      return data.questions as QuizQuestionType[];
     } catch (error) {
       console.error('Error generating questions:', error);
       toast({
