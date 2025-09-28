@@ -25,11 +25,11 @@ export function ProgrammingQuiz() {
   const [quizStarted, setQuizStarted] = useState(false);
   const { toast } = useToast();
 
-  const generateQuestion = async (topicIndex: number) => {
+  const generateQuestions = async () => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('generate-quiz-question', {
-        body: { topic: QUIZ_TOPICS[topicIndex % QUIZ_TOPICS.length] }
+        body: { difficulty: 'beginner', count: 15 }
       });
 
       if (error) {
@@ -37,15 +37,15 @@ export function ProgrammingQuiz() {
         throw new Error(error.message);
       }
 
-      if (!data) {
-        throw new Error('No data received from quiz generation');
+      if (!data || !data.questions) {
+        throw new Error('No questions received from quiz generation');
       }
 
-      return data as QuizQuestionType;
+      return data.questions as QuizQuestionType[];
     } catch (error) {
-      console.error('Error generating question:', error);
+      console.error('Error generating questions:', error);
       toast({
-        title: "Error generating question",
+        title: "Error generating questions",
         description: "Please try again in a moment.",
         variant: "destructive",
       });
@@ -60,14 +60,13 @@ export function ProgrammingQuiz() {
     setQuizStarted(true);
     
     try {
-      // Generate 5 questions
-      const newQuestions: QuizQuestionType[] = [];
-      for (let i = 0; i < 5; i++) {
-        const question = await generateQuestion(i);
-        newQuestions.push(question);
-      }
+      // Generate all questions at once
+      const newQuestions = await generateQuestions();
       
-      setQuestions(newQuestions);
+      // Take only 5 questions for the quiz
+      const selectedQuestions = newQuestions.slice(0, 5);
+      
+      setQuestions(selectedQuestions);
       setUserAnswers(new Array(5).fill(null));
       setCurrentQuestion(0);
       setSelectedAnswer(null);

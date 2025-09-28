@@ -14,34 +14,47 @@ serve(async (req) => {
   }
 
   try {
-    const { topic, difficulty = 'beginner' } = await req.json();
+    const { difficulty = 'beginner', count = 15 } = await req.json();
 
     if (!GEMINI_API_KEY) {
       throw new Error('GEMINI_API_KEY not configured');
     }
 
-    const prompt = `Generate a single multiple-choice programming quiz question for ${difficulty} level.
+    const topics = [
+      "Basic data structures (arrays, lists, variables)",
+      "Basic JavaScript (variables, loops, functions)", 
+      "Basic logic (if statements, comparisons)"
+    ];
 
-Topic: ${topic}
+    const prompt = `Generate ${count} multiple-choice programming quiz questions for ${difficulty} level.
+
+Topics to cover (distribute questions across these topics):
+${topics.map((topic, i) => `${i + 1}. ${topic}`).join('\n')}
 
 Requirements:
+- Generate exactly ${count} questions
 - Focus on fundamental concepts for beginners
-- Create exactly 4 answer options (A, B, C, D)
-- Make sure one answer is clearly correct
+- Create exactly 4 answer options (A, B, C, D) for each question
+- Make sure one answer is clearly correct for each question
 - Keep language simple and educational
-- Question should test understanding, not memorization
+- Questions should test understanding, not memorization
+- Distribute questions evenly across the topics
 
 Return ONLY valid JSON in this exact format:
 {
-  "topic": "${topic}",
-  "question": "Your question here",
-  "options": {
-    "A": "First option",
-    "B": "Second option", 
-    "C": "Third option",
-    "D": "Fourth option"
-  },
-  "answer": "B"
+  "questions": [
+    {
+      "topic": "Topic name here",
+      "question": "Your question here",
+      "options": {
+        "A": "First option",
+        "B": "Second option", 
+        "C": "Third option",
+        "D": "Fourth option"
+      },
+      "answer": "B"
+    }
+  ]
 }`;
 
     const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + GEMINI_API_KEY, {
@@ -59,7 +72,7 @@ Return ONLY valid JSON in this exact format:
           temperature: 0.7,
           topK: 40,
           topP: 0.95,
-          maxOutputTokens: 1024,
+          maxOutputTokens: 4096,
         }
       }),
     });
@@ -98,12 +111,20 @@ Return ONLY valid JSON in this exact format:
     }
 
     // Validate the structure
-    if (!questionData.topic || !questionData.question || !questionData.options || !questionData.answer) {
-      throw new Error('Invalid question format from AI');
+    if (!questionData.questions || !Array.isArray(questionData.questions)) {
+      throw new Error('Invalid questions format from AI - expected array of questions');
     }
 
-    if (!questionData.options.A || !questionData.options.B || !questionData.options.C || !questionData.options.D) {
-      throw new Error('Missing answer options from AI');
+    // Validate each question
+    for (let i = 0; i < questionData.questions.length; i++) {
+      const question = questionData.questions[i];
+      if (!question.topic || !question.question || !question.options || !question.answer) {
+        throw new Error(`Invalid question format at index ${i} from AI`);
+      }
+
+      if (!question.options.A || !question.options.B || !question.options.C || !question.options.D) {
+        throw new Error(`Missing answer options at index ${i} from AI`);
+      }
     }
 
     return new Response(JSON.stringify(questionData), {
