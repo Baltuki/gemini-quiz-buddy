@@ -15,12 +15,12 @@ const QUIZ_TOPICS = [
 ];
 
 const TOPICS_BY_DIFFICULTY: Record<string, string[]> = {
-  beginner: [
+  principiante: [
     "Estructuras de datos básicas (arreglos, listas, variables)",
     "JavaScript básico (variables, bucles, funciones)",
     "Lógica básica (if, comparaciones)"
   ],
-  intermediate: [
+  intermedio: [
     "Estructuras de datos nivel intermedio",
     "JavaScript intermedio",
     "Logica intermedia"
@@ -174,8 +174,8 @@ export function ProgrammingQuiz() {
                 onChange={e => setDifficulty(e.target.value)}
                 className="px-4 py-2 rounded-lg border border-quiz-primary bg-white text-quiz-primary font-semibold shadow focus:outline-none focus:ring-2 focus:ring-quiz-primary transition"
               >
-                <option value="beginner">Principiante</option>
-                <option value="intermediate">Intermedio</option>
+                <option value="principiante">Principiante</option>
+                <option value="intermedio">Intermedio</option>
               </select>
             </div>
             <div className="grid gap-4">
@@ -236,7 +236,7 @@ export function ProgrammingQuiz() {
       <div className="min-h-screen bg-gradient-secondary flex items-center justify-center">
         <div className="text-center space-y-4">
           <Loader2 className="w-8 h-8 animate-spin mx-auto text-quiz-primary" />
-          <p className="text-lg font-medium">Cargando pregunta...</p>
+          <p className="text-lg font-medium">Generando preguntas con IA...</p>
         </div>
       </div>
     );
@@ -245,7 +245,7 @@ export function ProgrammingQuiz() {
   return (
     <div className="min-h-screen bg-gradient-secondary p-4 py-8 space-y-6">
       <div className="w-full max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold text-center mb-6">Quiz de Programación - Nivel Principiante</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">Quiz de Programación - Nivel {difficulty}</h1>
         <QuizProgress 
           currentQuestion={currentQuestion + 1}
           totalQuestions={questions.length}
