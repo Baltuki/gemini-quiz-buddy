@@ -47,6 +47,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        quiz: {
+          primary: "hsl(var(--quiz-primary))",
+          "primary-glow": "hsl(var(--quiz-primary-glow))",
+          secondary: "hsl(var(--quiz-secondary))",
+          success: "hsl(var(--quiz-success))",
+          error: "hsl(var(--quiz-error))",
+          warning: "hsl(var(--quiz-warning))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -57,6 +65,22 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-secondary": "var(--gradient-secondary)",
+        "gradient-success": "var(--gradient-success)",
+        "gradient-error": "var(--gradient-error)",
+      },
+      boxShadow: {
+        quiz: "var(--shadow-quiz)",
+        card: "var(--shadow-card)",
+        success: "var(--shadow-success)",
+        error: "var(--shadow-error)",
+      },
+      transitionTimingFunction: {
+        smooth: "var(--transition-smooth)",
+        bounce: "var(--transition-bounce)",
       },
       borderRadius: {
         lg: "var(--radius)",
