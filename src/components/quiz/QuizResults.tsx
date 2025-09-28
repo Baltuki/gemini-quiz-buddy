@@ -23,7 +23,7 @@ export function QuizResults({ questions, userAnswers, onRestart }: QuizResultsPr
   };
 
   const getScoreMessage = () => {
-    if (percentage >= 80) return "Buenisimo! 🎉";
+    if (percentage >= 80) return "Ya estas para el bootcamp 🎉";
     if (percentage >= 60) return "Safa 👍";
     return "A pedazos! 📚";
   };
