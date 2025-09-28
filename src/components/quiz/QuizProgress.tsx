@@ -12,8 +12,8 @@ export function QuizProgress({ currentQuestion, totalQuestions, score }: QuizPro
   return (
     <div className="w-full max-w-2xl mx-auto space-y-2">
       <div className="flex justify-between text-sm font-medium text-muted-foreground">
-        <span>Progress</span>
-        <span>Score: {score}/{currentQuestion}</span>
+        <span>Progresión</span>
+        <span>Puntuación: {score}/{currentQuestion}</span>
       </div>
       <Progress 
         value={progressPercentage} 

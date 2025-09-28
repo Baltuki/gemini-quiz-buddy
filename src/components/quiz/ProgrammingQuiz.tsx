@@ -143,7 +143,7 @@ export function ProgrammingQuiz() {
               Quiz de Programación - Nivel Principiante
             </CardTitle>
             <p className="text-lg text-muted-foreground max-w-lg mx-auto">
-              ¡Pon a prueba tus conocimientos de conceptos básicos de programación! Este quiz cubre estructuras de datos fundamentales, conceptos básicos de JavaScript y lógica.
+              Este quiz cubre estructuras de datos fundamentales, conceptos básicos de JavaScript y lógica.
             </p>
           </CardHeader>
           <CardContent className="space-y-6">

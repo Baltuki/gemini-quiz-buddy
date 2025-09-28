@@ -61,23 +61,20 @@ export function QuizQuestion({
         </h2>
       </CardHeader>
       <CardContent className="space-y-3">
-        {options.map((option) => (
-          <Button
-            key={option}
-            variant="outline"
-            size="lg"
-            className={cn(
-              "w-full h-auto p-4 text-left justify-start font-medium text-base transition-smooth hover:scale-[1.02]",
-              getOptionStyle(option)
-            )}
-            onClick={() => !showAnswer && onAnswerSelect(option)}
+        {Object.entries(question.options).map(([key, value]) => (
+          <button
+            key={key}
+            onClick={() => onAnswerSelect(key)}
             disabled={showAnswer}
+            className={`w-full text-left p-4 rounded-lg border mb-2 transition
+              ${selectedAnswer === key
+                ? 'bg-quiz-primary text-white border-quiz-primary shadow-lg scale-105'
+                : 'bg-card border-muted hover:bg-muted'}
+              ${showAnswer && question.answer === key ? 'border-green-500' : ''}
+            `}
           >
-            <span className="font-bold mr-3 text-quiz-primary">
-              {option}.
-            </span>
-              <span className="flex-1">{question.options[option]}</span>
-          </Button>
+            <span className="font-bold mr-2">{key}.</span> {value}
+          </button>
         ))}
       </CardContent>
     </Card>

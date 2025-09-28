@@ -33,7 +33,7 @@ export function QuizResults({ questions, userAnswers, onRestart }: QuizResultsPr
       {/* Score Summary */}
       <Card className="text-center shadow-quiz bg-gradient-secondary border-0">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold">Quiz Complete!</CardTitle>
+          <CardTitle className="text-3xl font-bold">Quiz Completado!</CardTitle>
           <div className="space-y-2">
             <div className={`text-5xl font-bold ${getScoreColor()}`}>
               {score}/{questions.length}
@@ -53,14 +53,14 @@ export function QuizResults({ questions, userAnswers, onRestart }: QuizResultsPr
             className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl shadow-quiz transition-smooth hover:scale-105"
           >
             <RotateCcw className="w-5 h-5 mr-2" />
-            Try Again
+            Intentar Denuevo
           </Button>
         </CardContent>
       </Card>
 
       {/* Question Review */}
       <div className="space-y-4">
-        <h3 className="text-xl font-bold text-center">Question Review</h3>
+        <h3 className="text-xl font-bold text-center">Revisión de preguntas</h3>
         {questions.map((question, index) => {
           const userAnswer = userAnswers[index];
           const isCorrect = userAnswer === question.answer;
@@ -71,7 +71,7 @@ export function QuizResults({ questions, userAnswers, onRestart }: QuizResultsPr
                 <div className="flex items-start justify-between">
                   <div className="space-y-1">
                     <div className="text-sm font-medium text-muted-foreground">
-                      Question {index + 1} • {question.topic}
+                      Pregunta {index + 1} • {question.topic}
                     </div>
                     <h4 className="font-semibold text-base leading-relaxed">
                       {question.question}
@@ -105,10 +105,10 @@ export function QuizResults({ questions, userAnswers, onRestart }: QuizResultsPr
                         <span className="font-bold mr-2">{option}.</span>
                         {text}
                         {isCorrectAnswer && (
-                          <span className="ml-2 text-xs font-semibold">✓ Correct</span>
+                          <span className="ml-2 text-xs font-semibold">✓ Correcto</span>
                         )}
                         {isUserAnswer && !isCorrectAnswer && (
-                          <span className="ml-2 text-xs font-semibold">Your answer</span>
+                          <span className="ml-2 text-xs font-semibold">Tu respuesta</span>
                         )}
                       </div>
                     );
