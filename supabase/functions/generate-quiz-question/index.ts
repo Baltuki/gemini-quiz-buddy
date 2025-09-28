@@ -22,7 +22,7 @@ serve(async (req)=>{
     // --- LÓGICA MEJORADA: Se integra tu nuevo prompt con temas específicos ---
     const topics = [
       "Estructuras de datos básicas (arrays, listas, variables)",
-      "JavaScript ultra básico (variables, bucles, funciones)",
+      "JavaScript básico (variables, bucles, funciones)",
       "Lógica básica (condicionales if, comparaciones)"
     ];
     const promptText = `Genera ${count} preguntas de opción múltiple sobre programación para nivel ${difficulty}.

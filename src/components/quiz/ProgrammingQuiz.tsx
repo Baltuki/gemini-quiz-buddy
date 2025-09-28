@@ -14,6 +14,19 @@ const QUIZ_TOPICS = [
   "Basic logic (if statements, comparisons)"
 ];
 
+const TOPICS_BY_DIFFICULTY: Record<string, string[]> = {
+  beginner: [
+    "Estructuras de datos básicas (arreglos, listas, variables)",
+    "JavaScript básico (variables, bucles, funciones)",
+    "Lógica básica (if, comparaciones)"
+  ],
+  intermediate: [
+    "Estructuras de datos nivel intermedio",
+    "JavaScript intermedio",
+    "Logica intermedia"
+  ]
+};
+
 export function ProgrammingQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState<QuizQuestionType[]>([]);
@@ -23,13 +36,15 @@ export function ProgrammingQuiz() {
   const [isLoading, setIsLoading] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
+  const [difficulty, setDifficulty] = useState("beginner");
+  const topics = TOPICS_BY_DIFFICULTY[difficulty];
   const { toast } = useToast();
 
   const generateQuestions = async () => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('generate-quiz-question', {
-        body: { difficulty: 'beginner', count: 20 }
+        body: { difficulty, count: 20 }
       });
 
       if (error) {
@@ -59,6 +74,7 @@ export function ProgrammingQuiz() {
     setQuizStarted(true);
     
     try {
+      
       // Generate all questions at once
       const newQuestions = await generateQuestions();
 
@@ -133,6 +149,7 @@ export function ProgrammingQuiz() {
 
   if (!quizStarted) {
     return (
+      
       <div className="min-h-screen bg-gradient-secondary flex items-center justify-center p-4">
         <Card className="w-full max-w-2xl shadow-quiz bg-card border-0">
           <CardHeader className="text-center space-y-4">
@@ -140,13 +157,27 @@ export function ProgrammingQuiz() {
               <Brain className="w-8 h-8 text-white" />
             </div>
             <CardTitle className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Quiz de Programación - Nivel Principiante
+              Quiz de Programación
             </CardTitle>
             <p className="text-lg text-muted-foreground max-w-lg mx-auto">
               Este quiz cubre estructuras de datos fundamentales, conceptos básicos de JavaScript y lógica.
             </p>
           </CardHeader>
           <CardContent className="space-y-6">
+                <div className="mb-4 flex items-center gap-4 justify-center">
+              <label htmlFor="difficulty" className="font-semibold">
+                Dificultad:
+              </label>
+              <select
+                id="difficulty"
+                value={difficulty}
+                onChange={e => setDifficulty(e.target.value)}
+                className="px-4 py-2 rounded-lg border border-quiz-primary bg-white text-quiz-primary font-semibold shadow focus:outline-none focus:ring-2 focus:ring-quiz-primary transition"
+              >
+                <option value="beginner">Principiante</option>
+                <option value="intermediate">Intermedio</option>
+              </select>
+            </div>
             <div className="grid gap-4">
               <div className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
                 <Database className="w-5 h-5 text-quiz-primary" />
