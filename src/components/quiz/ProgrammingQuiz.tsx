@@ -29,7 +29,7 @@ export function ProgrammingQuiz() {
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('generate-quiz-question', {
-        body: { difficulty: 'beginner', count: 24 }
+        body: { difficulty: 'beginner', count: 20 }
       });
 
       if (error) {
@@ -165,7 +165,7 @@ export function ProgrammingQuiz() {
             
             <div className="text-center space-y-4">
               <p className="text-sm text-muted-foreground">
-                24 preguntas • Generado por IA • Retroalimentación inmediata
+                20 preguntas • Generado por IA • Retroalimentación inmediata
               </p>
               <Button 
                 onClick={startQuiz} 
