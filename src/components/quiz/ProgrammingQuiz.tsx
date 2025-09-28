@@ -29,7 +29,7 @@ export function ProgrammingQuiz() {
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('generate-quiz-question', {
-        body: { difficulty: 'beginner', count: 30 }
+        body: { difficulty: 'beginner', count: 24 }
       });
 
       if (error) {
