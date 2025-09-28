@@ -29,7 +29,7 @@ export function ProgrammingQuiz() {
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('generate-quiz-question', {
-        body: { difficulty: 'beginner', count: 15 }
+        body: { difficulty: 'beginner', count: 30 }
       });
 
       if (error) {
@@ -37,11 +37,11 @@ export function ProgrammingQuiz() {
         throw new Error(error.message);
       }
 
-if (!data || !Array.isArray(data) || data.length === 0) {
-  throw new Error('No questions received from quiz generation');
-}
-return data as QuizQuestionType[];
-
+      // Cambia aquí: accede a data.questions
+      if (!data || !Array.isArray(data.questions) || data.questions.length === 0) {
+        throw new Error('No questions received from quiz generation');
+      }
+      return data.questions as QuizQuestionType[];
     } catch (error) {
       console.error('Error generating questions:', error);
       toast({
