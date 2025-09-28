@@ -66,12 +66,16 @@ export function QuizQuestion({
             key={key}
             onClick={() => onAnswerSelect(key)}
             disabled={showAnswer}
-            className={`w-full text-left p-4 rounded-lg border mb-2 transition
+            className={`
+              w-full text-left p-4 rounded-lg border mb-2 transition
               ${selectedAnswer === key
-                ? 'bg-quiz-primary text-white border-quiz-primary shadow-lg scale-105'
-                : 'bg-card border-muted hover:bg-muted'}
+                ? 'bg-gradient-primary text-white border-quiz-primary shadow-lg scale-105'
+                : 'bg-card border-muted hover:bg-gradient-primary hover:text-white'}
               ${showAnswer && question.answer === key ? 'border-green-500' : ''}
             `}
+            style={{
+              cursor: showAnswer ? 'not-allowed' : 'pointer'
+            }}
           >
             <span className="font-bold mr-2">{key}.</span> {value}
           </button>

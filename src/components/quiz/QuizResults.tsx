@@ -23,9 +23,9 @@ export function QuizResults({ questions, userAnswers, onRestart }: QuizResultsPr
   };
 
   const getScoreMessage = () => {
-    if (percentage >= 80) return "Excellent work! 🎉";
-    if (percentage >= 60) return "Good job! Keep practicing! 👍";
-    return "Keep learning and try again! 📚";
+    if (percentage >= 80) return "Buenisimo! 🎉";
+    if (percentage >= 60) return "Safa 👍";
+    return "A pedazos! 📚";
   };
 
   return (
