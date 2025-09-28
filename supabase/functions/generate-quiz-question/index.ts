@@ -14,7 +14,7 @@ serve(async (req) => {
   }
 
   try {
-    const { difficulty = 'beginner', count = 30 } = await req.json();
+    const { difficulty = 'beginner', count = 24 } = await req.json();
 
     if (!GEMINI_API_KEY) {
       throw new Error('GEMINI_API_KEY not configured');

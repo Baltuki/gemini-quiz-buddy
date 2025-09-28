@@ -165,7 +165,7 @@ export function ProgrammingQuiz() {
             
             <div className="text-center space-y-4">
               <p className="text-sm text-muted-foreground">
-                5 preguntas • Generado por IA • Retroalimentación inmediata
+                24 preguntas • Generado por IA • Retroalimentación inmediata
               </p>
               <Button 
                 onClick={startQuiz} 
