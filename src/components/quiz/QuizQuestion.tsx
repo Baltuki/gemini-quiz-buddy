@@ -53,7 +53,8 @@ export function QuizQuestion({
     <Card className="w-full max-w-2xl mx-auto shadow-quiz bg-gradient-secondary border-0">
       <CardHeader className="text-center space-y-2">
         <div className="text-sm font-medium text-muted-foreground">
-          Question {questionNumber} of {totalQuestions} • {question.topic}
+          Pregunta {questionNumber} de {totalQuestions}
+          {question.topic && question.topic !== "undefined" && ` • ${question.topic}`}
         </div>
         <h2 className="text-2xl font-bold text-foreground leading-relaxed">
           {question.question}
@@ -75,7 +76,7 @@ export function QuizQuestion({
             <span className="font-bold mr-3 text-quiz-primary">
               {option}.
             </span>
-            <span className="flex-1">{question.options[option]}</span>
+              <span className="flex-1">{question.options[option]}</span>
           </Button>
         ))}
       </CardContent>

@@ -14,7 +14,7 @@ serve(async (req) => {
   }
 
   try {
-    const { difficulty = 'beginner', count = 15 } = await req.json();
+    const { difficulty = 'beginner', count = 30 } = await req.json();
 
     if (!GEMINI_API_KEY) {
       throw new Error('GEMINI_API_KEY not configured');
@@ -22,35 +22,35 @@ serve(async (req) => {
 
     const topics = [
       "Basic data structures (arrays, lists, variables)",
-      "Basic JavaScript (variables, loops, functions)", 
+      "Ultra Basic JavaScript (variables, loops, functions)", 
       "Basic logic (if statements, comparisons)"
     ];
 
-    const prompt = `Generate ${count} multiple-choice programming quiz questions for ${difficulty} level.
+    const prompt = `Genera ${count} preguntas de opción múltiple sobre programación para nivel ${difficulty}.
 
-Topics to cover (distribute questions across these topics):
+Temas a cubrir (distribuye las preguntas entre estos temas):
 ${topics.map((topic, i) => `${i + 1}. ${topic}`).join('\n')}
 
-Requirements:
-- Generate exactly ${count} questions
-- Focus on fundamental concepts for beginners
-- Create exactly 4 answer options (A, B, C, D) for each question
-- Make sure one answer is clearly correct for each question
-- Keep language simple and educational
-- Questions should test understanding, not memorization
-- Distribute questions evenly across the topics
+Requisitos:
+- Genera exactamente ${count} preguntas
+- Enfócate en conceptos fundamentales para principiantes
+- Crea exactamente 4 opciones de respuesta (A, B, C, D) para cada pregunta
+- Asegúrate de que una respuesta sea claramente correcta en cada pregunta
+- Usa un lenguaje simple y educativo
+- Las preguntas deben evaluar comprensión, no memorización
+- Distribuye las preguntas de manera uniforme entre los temas
 
-Return ONLY valid JSON in this exact format:
+Devuelve SOLO un JSON válido con este formato exacto:
 {
   "questions": [
     {
-      "topic": "Topic name here",
-      "question": "Your question here",
+      "topic": "Nombre del tema aquí",
+      "question": "Tu pregunta aquí",
       "options": {
-        "A": "First option",
-        "B": "Second option", 
-        "C": "Third option",
-        "D": "Fourth option"
+        "A": "Primera opción",
+        "B": "Segunda opción", 
+        "C": "Tercera opción",
+        "D": "Cuarta opción"
       },
       "answer": "B"
     }

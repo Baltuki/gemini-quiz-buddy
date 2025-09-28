@@ -42,7 +42,6 @@ if (!data || !Array.isArray(data) || data.length === 0) {
 }
 return data as QuizQuestionType[];
 
-      return data.questions as QuizQuestionType[];
     } catch (error) {
       console.error('Error generating questions:', error);
       toast({
@@ -63,20 +62,20 @@ return data as QuizQuestionType[];
     try {
       // Generate all questions at once
       const newQuestions = await generateQuestions();
-      
-      // Take only 5 questions for the quiz
-      const selectedQuestions = newQuestions.slice(0, 5);
+
+      // Take only 30 questions for the quiz
+      const selectedQuestions = newQuestions.slice(0, 30);
       
       setQuestions(selectedQuestions);
-      setUserAnswers(new Array(5).fill(null));
+      setUserAnswers(new Array(30).fill(null));
       setCurrentQuestion(0);
       setSelectedAnswer(null);
       setShowAnswer(false);
       setQuizComplete(false);
       
       toast({
-        title: "Quiz started!",
-        description: "Answer each question to the best of your ability.",
+        title: "¡Quiz iniciado!",
+        description: "Responde cada pregunta lo mejor que puedas.",
       });
     } catch (error) {
       setQuizStarted(false);
@@ -100,13 +99,13 @@ return data as QuizQuestionType[];
     
     const isCorrect = selectedAnswer === questions[currentQuestion].answer;
     
-    toast({
-      title: isCorrect ? "Correct! 🎉" : "Not quite right 🤔",
-      description: isCorrect 
-        ? "Well done! Keep it up!" 
-        : `The correct answer is ${questions[currentQuestion].answer}: ${questions[currentQuestion].options[questions[currentQuestion].answer]}`,
-      variant: isCorrect ? "default" : "destructive",
-    });
+      toast({
+        title: isCorrect ? "¡Correcto! 🎉" : "No es correcto 🤔",
+        description: isCorrect
+          ? "¡Bien hecho! ¡Sigue así!"
+          : `La respuesta correcta es ${questions[currentQuestion].answer}: ${questions[currentQuestion].options[questions[currentQuestion].answer]}`,
+        variant: isCorrect ? "default" : "destructive",
+      });
   };
 
   const handleNextQuestion = () => {
@@ -142,31 +141,31 @@ return data as QuizQuestionType[];
               <Brain className="w-8 h-8 text-white" />
             </div>
             <CardTitle className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Programming Quiz - Beginner Level
+              Quiz de Programación - Nivel Principiante
             </CardTitle>
             <p className="text-lg text-muted-foreground max-w-lg mx-auto">
-              Test your knowledge of basic programming concepts! This quiz covers fundamental data structures, JavaScript basics, and logical thinking.
+              ¡Pon a prueba tus conocimientos de conceptos básicos de programación! Este quiz cubre estructuras de datos fundamentales, conceptos básicos de JavaScript y lógica.
             </p>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid gap-4">
               <div className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
                 <Database className="w-5 h-5 text-quiz-primary" />
-                <span className="text-sm">Basic data structures & variables</span>
+                <span className="text-sm">Estructuras de datos y variables básicas</span>
               </div>
               <div className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
                 <Code className="w-5 h-5 text-quiz-primary" />
-                <span className="text-sm">JavaScript fundamentals</span>
+                <span className="text-sm">Fundamentos de JavaScript</span>
               </div>
               <div className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
                 <Brain className="w-5 h-5 text-quiz-primary" />
-                <span className="text-sm">Logic & decision making</span>
+                <span className="text-sm">Lógica y toma de decisiones</span>
               </div>
             </div>
             
             <div className="text-center space-y-4">
               <p className="text-sm text-muted-foreground">
-                5 questions • AI-generated • Immediate feedback
+                5 preguntas • Generado por IA • Retroalimentación inmediata
               </p>
               <Button 
                 onClick={startQuiz} 
@@ -177,10 +176,10 @@ return data as QuizQuestionType[];
                 {isLoading ? (
                   <>
                     <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                    Generating Questions...
+                    Generando preguntas...
                   </>
                 ) : (
-                  "Start Quiz"
+                  "Comenzar Quiz"
                 )}
               </Button>
             </div>
@@ -207,7 +206,7 @@ return data as QuizQuestionType[];
       <div className="min-h-screen bg-gradient-secondary flex items-center justify-center">
         <div className="text-center space-y-4">
           <Loader2 className="w-8 h-8 animate-spin mx-auto text-quiz-primary" />
-          <p className="text-lg font-medium">Loading question...</p>
+          <p className="text-lg font-medium">Cargando pregunta...</p>
         </div>
       </div>
     );
@@ -216,8 +215,7 @@ return data as QuizQuestionType[];
   return (
     <div className="min-h-screen bg-gradient-secondary p-4 py-8 space-y-6">
       <div className="w-full max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold text-center mb-6">Programming Quiz - Beginner Level</h1>
-        
+        <h1 className="text-2xl font-bold text-center mb-6">Quiz de Programación - Nivel Principiante</h1>
         <QuizProgress 
           currentQuestion={currentQuestion + 1}
           totalQuestions={questions.length}
@@ -242,16 +240,25 @@ return data as QuizQuestionType[];
             size="lg"
             className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl shadow-quiz transition-smooth hover:scale-105"
           >
-            Submit Answer
+            Enviar respuesta
           </Button>
         ) : (
-          <Button
-            onClick={handleNextQuestion}
-            size="lg"
-            className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl shadow-quiz transition-smooth hover:scale-105"
-          >
-            {currentQuestion < questions.length - 1 ? "Next Question" : "View Results"}
-          </Button>
+          <>
+            <Button
+              onClick={handleNextQuestion}
+              size="lg"
+              className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl shadow-quiz transition-smooth hover:scale-105"
+            >
+              {currentQuestion < questions.length - 1 ? "Siguiente pregunta" : "Ver resultados"}
+            </Button>
+            <Button
+              onClick={() => setQuizComplete(true)}
+              variant="outline"
+              className="ml-2"
+            >
+              Terminar
+            </Button>
+          </>
         )}
       </div>
     </div>
