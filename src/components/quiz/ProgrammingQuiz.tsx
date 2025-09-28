@@ -37,7 +37,6 @@ export function ProgrammingQuiz() {
         throw new Error(error.message);
       }
 
-      // Cambia aquí: accede a data.questions
       if (!data || !Array.isArray(data.questions) || data.questions.length === 0) {
         throw new Error('No questions received from quiz generation');
       }
