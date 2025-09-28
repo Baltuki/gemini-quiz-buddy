@@ -233,14 +233,30 @@ export function ProgrammingQuiz() {
 
       <div className="flex justify-center space-x-4">
         {!showAnswer ? (
-          <Button
-            onClick={handleSubmitAnswer}
-            disabled={!selectedAnswer}
-            size="lg"
-            className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl shadow-quiz transition-smooth hover:scale-105"
-          >
-            Enviar respuesta
-          </Button>
+          <>
+            <Button
+              onClick={handleSubmitAnswer}
+              disabled={!selectedAnswer}
+              size="lg"
+              className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl shadow-quiz transition-smooth hover:scale-105"
+            >
+              Enviar respuesta
+            </Button>
+            <Button
+              onClick={() => {
+                // Avanza a la siguiente pregunta sin responder
+                setCurrentQuestion((prev) => prev + 1);
+                setSelectedAnswer(null);
+                setShowAnswer(false);
+              }}
+              size="lg"
+              variant="outline"
+              className="ml-2"
+              disabled={currentQuestion >= questions.length - 1}
+            >
+              Saltar
+            </Button>
+          </>
         ) : (
           <>
             <Button
