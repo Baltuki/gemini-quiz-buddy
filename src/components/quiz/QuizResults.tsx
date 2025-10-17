@@ -24,24 +24,24 @@ export function QuizResults({ questions, userAnswers, onRestart }: QuizResultsPr
 
   const getScoreMessage = () => {
     if (percentage >= 80) return "Ya estas para el bootcamp 🎉";
-    if (percentage >= 60) return "Safa 👍";
-    return "A pedazos! 📚";
+    if (percentage >= 60) return "Y..... 👍";
+    return "burrisimo 📚";
   };
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* Score Summary */}
-      <Card className="text-center shadow-quiz bg-gradient-secondary border-0">
+      <Card className="text-center shadow-quiz bg-red border-2">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold">Quiz Completado!</CardTitle>
+          <CardTitle className="text-3xl font-bold">HOLA XDXD</CardTitle>
           <div className="space-y-2">
             <div className={`text-5xl font-bold ${getScoreColor()}`}>
               {score}/{questions.length}
             </div>
-            <div className={`text-2xl font-semibold ${getScoreColor()}`}>
+            <div className={`text-2xl font-bold ${getScoreColor()}`}>
               {percentage}%
             </div>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-dark text-muted-foreground">
               {getScoreMessage()}
             </p>
           </div>
@@ -50,10 +50,10 @@ export function QuizResults({ questions, userAnswers, onRestart }: QuizResultsPr
           <Button 
             onClick={onRestart}
             size="lg"
-            className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl shadow-quiz transition-smooth hover:scale-105"
+            className="bg-gradient-primary hover:opacity-90 text-red font-bold px-8 py-3 rounded-xl shadow-quiz transition-smooth hover:scale-105"
           >
             <RotateCcw className="w-5 h-5 mr-2" />
-            Intentar Denuevo
+           JODETE
           </Button>
         </CardContent>
       </Card>
