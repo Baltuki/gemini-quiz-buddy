@@ -157,10 +157,10 @@ export function ProgrammingQuiz() {
               <Brain className="w-8 h-8 text-white" />
             </div>
             <CardTitle className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Quiz de Programación
+              Quiz de GIT
             </CardTitle>
             <p className="text-lg text-muted-foreground max-w-lg mx-auto">
-              Este quiz cubre estructuras de datos fundamentales, conceptos básicos de JavaScript y lógica.
+              Probando 123
             </p>
           </CardHeader>
           <CardContent className="space-y-6">
